@@ -72,7 +72,7 @@ The javascript part is very simple. You just need to define a `widgetboxOnWidget
 ```javascript
 var app = angular.module('AngularWidgetboxApp', ['widgetbox']);
 
-app.controller('MainController', function($scope){
+app.controller('MainController', function($scope){ 
   // We have 4 columns with one widget in each of them
   $scope.columns = [ [{ }], [{ }], [{ }], [{ }] ];
 
