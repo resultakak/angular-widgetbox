@@ -75,10 +75,11 @@ var app = angular.module('AngularWidgetboxApp', ['widgetbox']);
 app.controller('MainController', function($scope){ 
   // We have 4 columns with one widget in each of them
   $scope.columns = [ [{ }], [{ }], [{ }], [{ }] ];
-
   // The angular-widgetbox directive calls this method when a widget is moved
   $scope.widgetboxOnWidgetMove = function(sourceColumn, sourcePosition, targetColumn, targetPosition){
     $scope.$apply(function(){
+      // The actual movement of the widget happens here, and that's not covered by this module
+      // You can copy this snippet if you like - it does the job.
       if(targetColumn){
         var widget = $scope.columns[parseInt(sourceColumn, 10)].splice(parseInt(sourcePosition, 10), 1)[0];
         var target = $scope.columns[parseInt(targetColumn, 10)];
