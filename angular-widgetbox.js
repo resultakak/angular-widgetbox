@@ -11,6 +11,7 @@
     node.style.pointerEvents = "";
     node.style.width = "";
   }
+
   function draggableSetCSS(node){
     node.style.width = node.offsetWidth + "px";
     node.style.position = "absolute";
@@ -27,7 +28,7 @@
   
   // We need to know when the hovered widget changes so we keep references to the last ones
   var hoveredColumn = null, hoveredWidget = null;
-  
+
   // The placeholder
   var placeholder = document.createElement('div');
   placeholder.className = 'widgetbox-placeholder';
@@ -99,20 +100,19 @@
   })
 
   // The widgetbox-column directive makes receptacles for our widgets
-  .directive('widgetboxColumn', function($parse, widgetboxDataService){
+  .directive('widgetboxColumn', ['$parse', 'widgetboxDataService', function($parse, widgetboxDataService){
     var classes = widgetboxDataService.classes = {};
     
     return function(scope, element, attrs){
       classes.column = "." + attrs.widgetboxColumn;
 
-      element.bind('mouseover', function(e){
+      element.bind('mousemove', function(e){
         if(!draggable) return;
-        
         var pos, seg, segment = null;
         var x = e.pageX; 
         var y = e.pageY;
         var i = 0, j = 0;
-        
+
         foundSegment:
         while(pos = positions[i++]){
           // Find the currently hovered column
@@ -127,11 +127,11 @@
             }
           }
         }
-        
+
         if(!segment || (segment.widget === hoveredWidget && segment.column === hoveredColumn)){
           return; // Nothing happens, we're still hovering above the same widget
         }
-        
+
         hoveredWidget = segment.widget;
         hoveredColumn = segment.column;
 
@@ -153,9 +153,9 @@
         hoveredWidget = hoveredColumn = null;
       });
     }
-  })
+  }])
   
-  .directive('widgetboxWidget', function($parse, $timeout, widgetboxDataService){
+  .directive('widgetboxWidget', ['$parse', '$timeout', 'widgetboxDataService', function($parse, $timeout, widgetboxDataService){
     var callbackFunc, classes = widgetboxDataService.classes;
 
     document.addEventListener('mousemove', function(e){
@@ -184,9 +184,8 @@
     // and the "restrict" option will automatically be se to "A"
     return function(scope, element, attrs){
       classes.widget = "." + attrs.widgetboxWidget;
-      
       var handleSelector = attrs.widgetboxDraghandle.replace(/^\s+|\s+$/, '');
-      var handle = handleSelector ? element.find(handleSelector) : element;
+      var handle = handleSelector ? angular.element(element[0].querySelector(handleSelector)) : element;
       var ctrlCallback = scope.widgetboxOnWidgetMove;
       
       callbackFunc = function(){
@@ -197,7 +196,7 @@
 
         ctrlCallback && ctrlCallback(sourceColumn, sourcePosition, targetColumn, targetPosition);
       }
-      
+
       // Dragging starts
       handle.bind('mousedown', function(e){
         // Respond only to left clicks
@@ -213,7 +212,7 @@
         offsetTop  = node.offsetTop;
         originX    = e.pageX;
         originY    = e.pageY;
-        
+
         draggableSetCSS(node);
         node.style.top = offsetTop + 'px';
         node.style.left = offsetLeft + 'px';
@@ -225,6 +224,6 @@
         });
       });
     }
-  });
+  }]);
 
 })();
