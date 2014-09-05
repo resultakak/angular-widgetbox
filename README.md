@@ -13,7 +13,7 @@ You can install angular-widgetbox with bower, or you can just checkout this repo
 ### HTML
 
 This is how your HTML codes should look like. We define boxes (columns) and inside them we define widgets. The columns need to have the `widgetbox-column` directive and the widgets need to have the `widgetbox-widget` directive.
-```
+```html
 <main ng-controller="MainController">
   <div class="wb-column" ng-repeat="c in columns" widgetbox-column='wb-column' widgetbox-column-id="{{ $index }}">
     <div ng-repeat="widget in c" class="wb-widget" widgetbox-widget='wb-widget' widgetbox-draghandle=".widget-header *"
