@@ -184,7 +184,7 @@
     // and the "restrict" option will automatically be se to "A"
     return function(scope, element, attrs){
       classes.widget = "." + attrs.widgetboxWidget;
-      var handleSelector = attrs.widgetboxDraghandle.replace(/^\s+|\s+$/, '');
+      var handleSelector = (attrs.widgetboxDraghandle || "").replace(/^\s+|\s+$/, '');
       var handle = handleSelector ? angular.element(element[0].querySelector(handleSelector)) : element;
       var ctrlCallback = scope.widgetboxOnWidgetMove;
       
