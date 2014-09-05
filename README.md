@@ -4,6 +4,10 @@ Angular Widgetbox is module for angularJS that lets you place widgets into boxes
 
 The module defines 2 angular directives, `widgetbox-column` and `widgetbox-widget` which let you build widgets and boxes to place the widgets in.
 
+## Demo
+
+Here's the module in action: http://skid.github.io/angular-widgetbox.html
+
 ## Usage
 
 You can install angular-widgetbox with bower, or you can just checkout this repository:
