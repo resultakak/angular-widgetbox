@@ -5,18 +5,18 @@
 
   function draggableClearCSS(node){
     node.style.position = "";
-    node.style.opacity = "1";
     node.style.left = "";
     node.style.top = "";
     node.style.pointerEvents = "";
     node.style.width = "";
+    node.classList.remove('angular-widgetbox-dragged');
   }
 
   function draggableSetCSS(node){
     node.style.width = node.offsetWidth + "px";
     node.style.position = "absolute";
-    node.style.opacity = "0.5";
     node.style.pointerEvents = "none";
+    node.classList.add('angular-widgetbox-dragged');
   }
 
   // We define these in the outer scope to allow communication between 
@@ -184,7 +184,7 @@
     // and the "restrict" option will automatically be se to "A"
     return function(scope, element, attrs){
       classes.widget = "." + attrs.widgetboxWidget;
-      var handleSelector = (attrs.widgetboxDraghandle || "").replace(/^\s+|\s+$/, '');
+      var handleSelector = attrs.widgetboxDraghandle.replace(/^\s+|\s+$/, '');
       var handle = handleSelector ? angular.element(element[0].querySelector(handleSelector)) : element;
       var ctrlCallback = scope.widgetboxOnWidgetMove;
       

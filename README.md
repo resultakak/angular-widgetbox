@@ -101,6 +101,11 @@ The `widgetboxOnWidgetMove` function will be passed 4 arguments:
 - `targetColumn` - Integer, the index of the column where the widget is dropped.
 - `targetPosition` - Mixed, If it's an integer, it's the index where the widget is dropped. Otherwise if it's the string "last", the widget is being dropped at the bottom of the column.
 
+
+### CSS
+
+Dragged elements have the class `angular-widgetbox-dragged` added to them.
+
 ## License
 
 MIT
